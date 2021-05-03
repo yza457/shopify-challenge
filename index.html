@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shopify Challenge</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+  </head>
+  <body>
+  <!-- header -->
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-three-quarters">
+          <h1 class="title is-1">
+            Yang's Image Repository
+          </h1>
+        </div>
+        <div class="column is-4">
+          <p class="has-text-centered is-centered">
+            <a href="https://github.com/yza457/shopify-challenge">link to github</a>
+          </p>
+        </div>
+      </div>
+      <p class="subtitle is-3">
+        Search for products in online images
+      </p>
+    </div>
+  </section>
+
+  <!-- search bar -->
+  <section class="section mt-1 mb-1 pt-1 pb-1">
+    <div class="container">
+        <form class="form-inline" method="post">
+          <div class="field has-addons has-addons-fullwidth">
+            <input class="input" type="text" placeholder="Enter image url" name="input">
+            <button class="button is-light" type="submit" name="search" >Search</button>
+          </div>
+        </form> 
+    </div>
+  </section>
+
+  <!-- input image and search result -->
+  {% if input_url %}
+  <!-- input image -->
+  <section class="section pb-1">
+    <div class="container">
+      <p class="subtitle is-4">Input image:</p>
+      <div class="columns">
+        <div class="column is-one-quarter-desktop is-half-tablet is-offset-one-quarter">
+
+          <div class="card">
+            <div class="card-image">
+                <figure class="image is-1by1">
+                  <img src={{ escape(input_url) }} alt="">
+                </figure>
+            </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- search result -->
+  <section class="section">
+    <div class="container">
+      <p class="subtitle is-4">Image Results</p>
+      <div class="columns is-multiline">
+        {% if len(result) > 0 %}
+          {% for product in result %}
+            <div class="column is-one-quarter-desktop is-half-tablet">
+              <div class="card">
+                  <div class="card-image">
+                      <figure class="image is-1by1">
+                        <img src={{ "images/" + escape(product[3]) }}>
+                      </figure>
+                      <div class="card-content is-overlay is-clipped">
+                        <span class="tag is-light">
+                          {{ escape(product[1]) }}
+                        </span>       
+                      </div>
+                  </div>
+              </div>
+            </div>
+          {% end %}
+        {% else %}
+          <div class="container">
+            <p class="subtitle is-5">No similar images found, please use another image</p>
+          </div>
+        {% end %}
+      </div>
+    </div>
+  </section>
+  {% end %}
+  </body>
+</html>
